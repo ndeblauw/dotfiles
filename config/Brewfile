@@ -53,6 +53,10 @@ cask "whatsapp"
 cask "todoist-app"
 cask "vlc"
 cask "wispr-flow"
+cask "ray"
+cask "yaak"
+cask "imageoptim"
+cask "telegram"
 
 # Browsers
 cask "firefox"
