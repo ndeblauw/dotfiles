@@ -111,6 +111,7 @@ success "npm packages processed"
 # Global Composer packages
 step "Installing global Composer packages"
 composer global require laravel/pint || warn "pint already installed or failed"
+composer global require spatie/flare-cli || warn "flare-cli already installed or failed"
 # TODO: re-evaluate envoy - see issue
 # composer global require laravel/envoy || warn "envoy already installed or failed"
 # TODO: re-evaluate phpunit-watcher - see issue
