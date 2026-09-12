@@ -16,7 +16,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
 
 - [How It Works](#how-it-works) - [Symlinked Files](#symlinked-files) · [Sourced Files](#sourced-files) · [Custom Agnoster Theme](#custom-agnoster-theme)
 - [Daily Usage](#daily-usage) - [Smart Navigation](#smart-navigation) · [Laravel/PHP Shortcuts](#laravelphp-shortcuts) · [Data Processing](#data-processing) · [Maintenance Commands](#maintenance-commands)
-- [Version Management](#version-management) - [Node.js via fnm](#nodejs-via-fnm) · [PHP & Composer via Homebrew](#php--composer-via-homebrew)
+- [Version Management](#version-management) - [Node.js via Herd's nvm](#nodejs-via-herds-nvm) · [PHP & Composer via Laravel Herd](#php--composer-via-laravel-herd)
 - [Package Management](#package-management) - the Brewfile and global npm and Composer packages
 
 **AI setup**
@@ -44,7 +44,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
 - **Custom Agnoster Theme** - Clean powerline prompt with no branch symbols, `•` for changes
 - **Version-Controlled AI Setup** - Skills, agents, settings, and instructions for both Claude Code and Codex, from one source
 - **Framework-Aware Code Intelligence** - Laravel LSP, Intelephense, and TypeScript language servers wired into the agent
-- **Fast Tools** - fnm, zoxide, ripgrep, bat, eza (all Rust-based for speed)
+- **Fast Tools** - zoxide, ripgrep, bat, eza (all Rust-based for speed)
 - **One Command Install** - `bin/install` sets up everything including Claude Code
 
 ---
@@ -70,7 +70,6 @@ bin/install
 
 ### Modern CLI Tools
 
-- **fnm** - Fast Node.js version manager
 - **bat** - Cat with syntax highlighting
 - **eza** - Modern ls replacement with icons
 - **ripgrep** - Fast grep alternative
@@ -82,11 +81,8 @@ bin/install
 
 ### Development Tools
 
-- **PHP** - Latest version via Homebrew
-- **Composer** - Dependency manager via Homebrew
-- **Node.js** - LTS version managed via fnm
-- **Laravel Valet** - Local development server
-- **MySQL** - Database with auto-start
+- **Laravel Herd** - Local dev server (bundles PHP, Composer, Node/nvm, and services)
+- **MySQL** - Managed via Herd Pro services
 
 ### QuickLook Plugins
 
@@ -200,21 +196,21 @@ bin/update          # Update all packages and tools
 
 ## Version Management
 
-### Node.js (via fnm)
+### Node.js (via Herd's nvm)
 
 ```bash
-fnm install --lts     # Install latest LTS
-fnm use lts-latest    # Use latest LTS
-fnm install 20        # Install specific version
-fnm use 20            # Switch to specific version
-fnm list              # Show installed versions
+nvm ls                       # List installed versions
+nvm install --lts            # Install latest LTS
+nvm use --lts                # Use latest LTS
+herd isolate-node 20         # Pin a Node version per project
 ```
 
-### PHP & Composer (via Homebrew)
+### PHP & Composer (via Laravel Herd)
 
 ```bash
-brew upgrade php      # Update PHP to latest
-brew upgrade composer # Update Composer
+herd use 8.4       # Switch global PHP version
+herd php:update    # Update PHP
+herd composer      # Run composer with the site's PHP
 ```
 
 ---
@@ -230,12 +226,13 @@ brew bundle --file=~/.dotfiles/config/Brewfile
 
 **Complete package list:**
 
-- **Core**: node, php, composer, pkg-config, wget, httpie, ncdu, hub, ack, doctl, 1password-cli, git-secret, imagemagick, mysql, yarn, ghostscript, mackup
-- **Modern CLI**: zoxide, bat, eza, ripgrep, fd, git-delta, fnm, fzf, direnv, jq, yq, bottom, zsh-autosuggestions
+- **Core**: pkg-config, wget, httpie, ncdu, hub, ack, doctl, 1password-cli, git-secret, imagemagick, yarn, ghostscript, mackup
+- **Laravel Herd**: herd (bundles PHP, Composer, Node/nvm, MySQL services)
+- **Modern CLI**: zoxide, bat, eza, ripgrep, fd, git-delta, fzf, direnv, jq, yq, bottom, zsh-autosuggestions
 - **QuickLook**: qlcolorcode, qlstephen, qlmarkdown, quicklook-json, qlprettypatch, quicklook-csv, betterzip, suspicious-package
-- **PHP Extensions**: imagick, memcached, xdebug, redis
-- **Global npm**: agent-browser, intelephense, typescript-language-server, typescript
-- **Global Composer**: laravel/envoy, spatie/phpunit-watcher, laravel/valet, laravel/lsp
+- **PHP Extensions**: imagick, memcached, redis (via pecl, activated in Herd's php.ini); xdebug ships with Herd
+- **Global npm**: agent-browser
+- **Global Composer**: laravel/pint
 
 ---
 
@@ -451,7 +448,7 @@ Variables load when you enter the directory and unload when you leave.
 | Old Tool | New Tool | Why Better |
 |----------|----------|------------|
 | z.sh / autojump | zoxide | Smarter frecency algorithm, Rust speed |
-| nvm | fnm | 40x faster, simpler, Rust-based |
+| nvm / fnm | Herd's nvm | Single integrated Node manager, no extra tool |
 | cat | bat | Syntax highlighting, git integration |
 | ls | eza | Icons, tree view, git status |
 | grep | ripgrep | 5-10x faster, respects .gitignore |
