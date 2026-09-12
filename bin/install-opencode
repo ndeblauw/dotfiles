@@ -52,16 +52,25 @@ if [ -d "$DOTFILES_DIR/config/opencode" ]; then
 
     ln -sf "$DOTFILES_DIR/config/opencode/opencode.jsonc" ~/.config/opencode/opencode.jsonc
 
-    # Symlink skills directory if present
-    if [ -d "$DOTFILES_DIR/config/opencode/skill" ]; then
-        rm -rf ~/.config/opencode/skill
-        ln -sf "$DOTFILES_DIR/config/opencode/skill" ~/.config/opencode/skill
+    # Global rules. OpenCode reads ~/.config/opencode/AGENTS.md (falling back to
+    # ~/.claude/CLAUDE.md), so link the same harness-neutral AGENTS.md source.
+    if [ -f "$DOTFILES_DIR/config/claude/AGENTS.md" ]; then
+        ln -sf "$DOTFILES_DIR/config/claude/AGENTS.md" ~/.config/opencode/AGENTS.md
     fi
 
-    # Symlink agents directory if present
-    if [ -d "$DOTFILES_DIR/config/opencode/agent" ]; then
-        rm -rf ~/.config/opencode/agent
-        ln -sf "$DOTFILES_DIR/config/opencode/agent" ~/.config/opencode/agent
+    # Skills. OpenCode reads ~/.agents/skills natively, so reuse the shared
+    # linker instead of symlinking the raw directory (it filters out skills that
+    # need Claude-specific MCP tooling, like `ui`).
+    if [ -x "$DOTFILES_DIR/bin/link-agent-skills" ]; then
+        DOTFILES_DIR="$DOTFILES_DIR" "$DOTFILES_DIR/bin/link-agent-skills"
+    fi
+
+    # Agents. OpenCode discovers subagents from ~/.config/opencode/agents/*.md
+    # (the filename becomes the agent name). Symlink the shared Claude agents
+    # directory; OpenCode ignores the Claude-specific frontmatter fields.
+    if [ -d "$DOTFILES_DIR/config/claude/agents" ]; then
+        rm -rf ~/.config/opencode/agents
+        ln -sf "$DOTFILES_DIR/config/claude/agents" ~/.config/opencode/agents
     fi
 
     success "OpenCode configured"
