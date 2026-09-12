@@ -126,6 +126,16 @@ success "MySQL processed"
 # Spotlight exclusions
 bash ~/.dotfiles/bin/exclude-from-spotlight || warn "Spotlight exclusions had issues"
 
+# OpenCode setup
+echo ""
+read -p "Install OpenCode? (y/n) " -n 1 -r
+echo ""
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    bash ~/.dotfiles/bin/install-opencode || warn "OpenCode setup had issues"
+else
+    warn "Skipping OpenCode installation"
+fi
+
 # Claude Code setup
 echo ""
 read -p "Install Claude Code? (y/n) " -n 1 -r
