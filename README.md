@@ -287,7 +287,6 @@ All skills live in `config/claude/skills/` and are version-controlled. On a new 
 |-------|--------------|
 | `flare` | Triage errors and performance data on flareapp.io |
 | `mailcoach` | Email lists, subscribers, campaigns, automations |
-| `there-there` | Helpdesk tickets, contacts, channels |
 | `write-freek-dev-blogpost` | Draft a post in the freek.dev voice |
 | `code-snippet-images` | Render code screenshots for social media |
 
