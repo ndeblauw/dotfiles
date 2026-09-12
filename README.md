@@ -19,7 +19,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
 
 **AI setup**
 
-- [AI Development Setup](#ai-development-setup) - one config for Claude Code and Codex
+- [AI Development Setup](#ai-development-setup) - one config for Claude Code, Codex, and OpenCode
   - [Quick Install (Standalone)](#quick-install-standalone) - the AI setup without the rest of the dotfiles
   - [Skills](#skills) - all 19, grouped by purpose
   - [Scoped Plugins](#scoped-plugins) - skills that load only in the repos that need them
@@ -27,7 +27,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
   - [Agents](#agents) - custom subagents
   - [The Review Workflow](#the-review-workflow) - the six lanes behind `review-code` and `review-pr`
   - [Settings Worth Knowing](#settings-worth-knowing)
-  - [Sharing With Codex](#sharing-with-codex) - how one source feeds both harnesses
+  - [Sharing With Codex and OpenCode](#sharing-with-codex-and-opencode) - how one source feeds all three harnesses
   - [Adding New Skills](#adding-new-skills) - and the two rules that decide whether a skill gets used
 
 **Everything else**
@@ -40,7 +40,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
 ## Key Features
 
 - **Custom Agnoster Theme** - Clean powerline prompt with no branch symbols, `•` for changes
-- **Version-Controlled AI Setup** - Skills, agents, settings, and instructions for both Claude Code and Codex, from one source
+- **Version-Controlled AI Setup** - Skills, agents, settings, and instructions for Claude Code, Codex, and OpenCode, from one source
 - **Framework-Aware Code Intelligence** - Laravel LSP, Intelephense, and TypeScript language servers wired into the agent
 - **Fast Tools** - zoxide, ripgrep, bat, eza (all Rust-based for speed)
 - **One Command Install** - `bin/install` sets up everything including Claude Code
@@ -107,7 +107,9 @@ The installation creates symlinks from your home directory to the dotfiles repos
 | `~/.claude/CLAUDE.md` | `~/.dotfiles/config/claude/AGENTS.md` | Agent instructions (Claude reads `CLAUDE.md`, not `AGENTS.md`) |
 | `~/.claude/settings.json` | `~/.dotfiles/config/claude/settings.json` | Claude Code settings |
 | `~/.codex/AGENTS.md` | `~/.dotfiles/config/claude/AGENTS.md` | The same instructions, read natively by Codex |
-| `~/.agents/skills/*` | `~/.dotfiles/config/claude/skills/*` | One symlink per shared skill, discovered by Codex. See `bin/link-agent-skills` |
+| `~/.config/opencode/AGENTS.md` | `~/.dotfiles/config/claude/AGENTS.md` | The same instructions, read natively by OpenCode |
+| `~/.config/opencode/agents` | `~/.dotfiles/config/claude/agents` | Shared subagents, discovered by OpenCode (filename = agent name) |
+| `~/.agents/skills/*` | `~/.dotfiles/config/claude/skills/*` | One symlink per shared skill, discovered by Codex and OpenCode. See `bin/link-agent-skills` |
 | `~/.config/zed/settings.json` | `~/.dotfiles/config/zed/settings.json` | Zed editor settings |
 | `~/.config/zed/keymap.json` | `~/.dotfiles/config/zed/keymap.json` | Zed custom keybindings |
 | `~/.config/ghostty/config` | `~/.dotfiles/config/ghostty/config` | Ghostty terminal settings |
@@ -236,11 +238,11 @@ brew bundle --file=~/.dotfiles/config/Brewfile
 
 ## AI Development Setup
 
-Everything the agents need lives in `config/claude/`, and both Claude Code and Codex read it from there. Nothing is duplicated per tool.
+Everything the agents need lives in `config/claude/`, and Claude Code, Codex, and OpenCode all read it from there. Nothing is duplicated per tool.
 
 ```
 config/claude/
-├── AGENTS.md          the instructions, read by both harnesses
+├── AGENTS.md          the instructions, read by all three harnesses
 ├── settings.json      Claude Code settings, permissions, hooks
 ├── agents/            custom subagents
 └── skills/            19 skills, plus 3 scoped plugins
@@ -254,7 +256,7 @@ Install just the AI setup without the full dotfiles:
 curl -fsSL https://raw.githubusercontent.com/ndeblauw/dotfiles/main/bin/install-claude-code | bash
 ```
 
-That installs the Claude Code CLI, symlinks the config, and runs `bin/link-agent-skills` to share the harness-neutral skills with Codex.
+That installs the Claude Code CLI, symlinks the config, and runs `bin/link-agent-skills` to share the harness-neutral skills with Codex and OpenCode. `bin/install-opencode` does the same for the OpenCode CLI.
 
 ### Skills
 
@@ -365,21 +367,21 @@ The lanes file has a per-harness table, so the same review runs under Codex with
 | `cleanupPeriodDays` | Transcript retention, set to a year |
 | `defaultMode: auto` | A classifier handles approvals instead of prompting on every step |
 
-### Sharing With Codex
+### Sharing With Codex and OpenCode
 
-Codex reads `AGENTS.md` natively and Claude Code reads `CLAUDE.md`, so one file is symlinked under both names. Skills also have one source: `config/claude/skills/`. Claude reads it through `~/.claude/skills`; Codex reads individual symlinks in `~/.agents/skills`, its [documented user skill directory](https://learn.chatgpt.com/docs/build-skills). Codex's built-in `~/.codex/skills/.system` stays separate.
+Codex and OpenCode read `AGENTS.md` natively and Claude Code reads `CLAUDE.md`, so one file is symlinked under all three names. Skills also have one source: `config/claude/skills/`. Claude reads it through `~/.claude/skills`; Codex and OpenCode both read individual symlinks in `~/.agents/skills`, their [documented user skill directory](https://learn.chatgpt.com/docs/build-skills). Codex's built-in `~/.codex/skills/.system` stays separate. OpenCode discovers subagents from `~/.config/opencode/agents`, symlinked to the shared `config/claude/agents` directory.
 
 ```bash
 bin/install-agent-skill-sync
 ```
 
-The script automatically links every directory with a top-level `SKILL.md`, except `ui`, which retains its Claude-specific integration. Nested plugin skills remain scoped to their plugins and are not installed globally by this script. Sharing skill files does not install Claude plugins, MCP servers, or named subagents into Codex.
+The script automatically links every directory with a top-level `SKILL.md`, except `ui`, which retains its Claude-specific integration. Nested plugin skills remain scoped to their plugins and are not installed globally by this script. Sharing skill files does not install Claude plugins, MCP servers, or named subagents into Codex or OpenCode.
 
 The macOS installer enables a per-user LaunchAgent, `be.freek.agent-skill-sync`, so no command is needed when adding skills. It runs at login, watches the source directory, and checks every 60 seconds for changes inside existing folders. Removed or renamed skills have their old managed links cleaned up. `bin/install-claude-code` installs this job automatically on new machines.
 
 Edits to an already linked skill are shared immediately. Existing installations with the same directory name are moved to `~/.agents/backups/link-agent-skills.*` before linking; unrelated skills are preserved. Repeated runs leave correct links alone. To run a check immediately, use `bin/link-agent-skills`. Background errors go to `~/Library/Logs/be.freek.agent-skill-sync.log`.
 
-In Codex, invoke `$review-code` or `$review-pr`. If a newly linked skill does not appear, restart Codex. The PR skill retains its existing review-and-merge workflow; the code review skill can apply fixes.
+In Codex, invoke `$review-code` or `$review-pr`. If a newly linked skill does not appear, restart Codex or OpenCode. The PR skill retains its existing review-and-merge workflow; the code review skill can apply fixes.
 
 ### Adding New Skills
 
@@ -387,7 +389,7 @@ In Codex, invoke `$review-code` or `$review-pr`. If a newly linked skill does no
 # Install a skill (adds directly to your dotfiles)
 npx skills add <owner/repo>
 
-# Codex links are created automatically within a minute.
+# Codex and OpenCode links are created automatically within a minute.
 
 cd ~/.dotfiles
 git add config/claude/skills/
@@ -466,8 +468,9 @@ These can't be automated via Homebrew (licensing, account requirements, or no ca
 The `bin/` directory contains helper scripts:
 
 - **install** - Main installation script (idempotent, safe to re-run)
-- **install-claude-code** - Standalone installer for the AI setup: the CLI, the symlinks, and the Codex links
-- **link-agent-skills** - Symlink the harness-neutral skills and `AGENTS.md` into Codex, leaving Codex's own built-in skills alone
+- **install-claude-code** - Standalone installer for the AI setup: the CLI, the symlinks, and the Codex/OpenCode links
+- **install-opencode** - Standalone installer for the OpenCode CLI, config, rules, skills, and shared agents
+- **link-agent-skills** - Symlink the harness-neutral skills and `AGENTS.md` into Codex and OpenCode, leaving each harness's own built-in skills alone
 - **install-agent-skill-sync** - Install the macOS background job that keeps shared skill links current automatically
 - **exclude-from-spotlight** - Drop a `.metadata_never_index` marker into data heavy directories so Spotlight skips them. Local database directories (DBngin and friends) hold hundreds of thousands of constantly rewritten files, which keeps `mds_stores` busy indefinitely.
 - **update** - Update dotfiles, Homebrew, npm, and Composer packages
