@@ -6,7 +6,7 @@
 [user]
 	name = Nico Deblauwe
 	email = nico@bluepundit.eu
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOd4zgKsJm1yDquP2+Ca7nZqUiJ2aZNwxJHP9gg3teWQ
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIdD4/p0KzVd+LsbtjpyGXIViHSsQxQAOqdlURnBK92S
 
 [filter "lfs"]
 	required = true
@@ -25,9 +25,6 @@
 
 [gpg]
 	format = ssh
-
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 
 [commit]
 	gpgsign = true
