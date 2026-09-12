@@ -13,8 +13,7 @@ brew "ncdu"
 brew "hub"
 brew "gh"
 brew "ack"
-brew "doctl"
-cask "1password-cli"
+cask "roboform"
 brew "git-secret"
 brew "imagemagick"
 brew "yarn"
@@ -40,7 +39,24 @@ brew "bottom"
 
 # Development tools
 cask "claude-code"
+tap "anomalyco/tap"
+brew "opencode"
+cask "github"
 cask "zed"
+cask "tinkerwell"
+cask "beekeeper-studio"
+cask "phpstorm"
+
+# Productivity
+cask "notion"
+cask "whatsapp"
+cask "todoist-app"
+cask "vlc"
+cask "wispr-flow"
+
+# Browsers
+cask "firefox"
+cask "google-chrome"
 
 # QuickLook plugins
 cask "qlcolorcode"
