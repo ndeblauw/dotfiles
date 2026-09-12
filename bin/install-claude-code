@@ -68,21 +68,6 @@ if [ -d "$DOTFILES_DIR/config/claude" ]; then
     rm -rf ~/.claude/agents
     ln -sf "$DOTFILES_DIR/config/claude/agents" ~/.claude/agents
 
-    # Scoped plugins are enabled per workspace. Only wire up a workspace that
-    # already exists, so a fresh machine is not littered with empty directories.
-    MUSIC_DIR="${MUSIC_DIR:-$HOME/dev/code/music}"
-    if [ -d "$MUSIC_DIR" ] && [ ! -f "$MUSIC_DIR/.claude/settings.json" ]; then
-        mkdir -p "$MUSIC_DIR/.claude"
-        cat > "$MUSIC_DIR/.claude/settings.json" <<'JSON'
-{
-  "enabledPlugins": {
-    "music@skills-dir": true
-  }
-}
-JSON
-        success "Enabled music@skills-dir in $MUSIC_DIR"
-    fi
-
     # Share the harness-neutral skills with Codex and any other SKILL.md reader.
     if [ -x "$DOTFILES_DIR/bin/link-agent-skills" ]; then
         DOTFILES_DIR="$DOTFILES_DIR" "$DOTFILES_DIR/bin/link-agent-skills"
@@ -109,7 +94,7 @@ echo ""
 step "Next steps:"
 if [ ! -d "$DOTFILES_DIR/config/claude" ]; then
     echo "  • Clone dotfiles for custom configuration:"
-    echo "    git clone https://github.com/freekmurze/dotfiles.git ~/.dotfiles"
+    echo "    git clone https://github.com/ndeblauw/dotfiles.git ~/.dotfiles"
     echo "    ~/.dotfiles/bin/install-claude-code"
     echo ""
 fi
