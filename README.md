@@ -434,15 +434,14 @@ Variables load when you enter the directory and unload when you leave.
 
 ## Post-Installation
 
-1. **Restore settings** (optional): `mackup restore && mackup uninstall --force`. On macOS 14+ mackup's symlink (link) mode breaks app preferences, so restore, then remove the links immediately (see mackup issue #2035). The mackup folder lives in iCloud Drive at `~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/`.
+1. **Restore settings** (optional): `mackup restore && mackup uninstall --force`. On macOS 14+ mackup's symlink (link) mode breaks app preferences, so restore, then remove the links immediately (see mackup issue #2035). The mackup folder lives in iCloud Drive at `~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/`. This restores `~/.ssh/config`, `authorized_keys`, and your SSH private keys (via the custom `macos/mackup/ssh.cfg` override).
 
 2. **Migrate history** (upgrading only): Run `migration/migrate-z-to-zoxide.sh` if you have `~/.z`
 
-3. **Copy the SSH signing key**: Your `home/.gitconfig` enables commit signing (`gpgsign = true`) with your Ed25519 key. Copy the private key onto this machine so commits can sign:
-   - Copy `id_ed25519` (private) and `id_ed25519.pub` (public) into `~/.ssh/` (default: `~/.ssh/id_ed25519`)
+3. **Verify SSH signing**: Your `home/.gitconfig` enables commit signing (`gpgsign = true`) with your Ed25519 key. After mackup restores your keys, load the key into the agent and verify:
    - `chmod 600 ~/.ssh/id_ed25519`
    - `ssh-add ~/.ssh/id_ed25519`
-   - If you don't have the keypair, generate one: `ssh-keygen -t ed25519 -C "nico@bluepundit.eu"` and register the `.pub` on GitHub → Settings → SSH and GPG keys → **Signing key**
+   - If no key exists (fresh keypair), generate one: `ssh-keygen -t ed25519 -C "nico@bluepundit.eu"` and register the `.pub` on GitHub → Settings → SSH and GPG keys → **Signing key**
    - Verify: `git commit --allow-empty -m "test"` then `git log --show-signature -1` (should show `Good "git" signature`)
 
 ### Manual Installs

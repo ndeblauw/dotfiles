@@ -57,6 +57,8 @@ ln -sf ~/.dotfiles/home/.zshrc ~/.zshrc
 ln -sf ~/.dotfiles/home/.vimrc ~/.vimrc
 ln -sf ~/.dotfiles/home/.vim ~/.vim
 ln -sf ~/.dotfiles/macos/.mackup.cfg ~/.mackup.cfg
+mkdir -p ~/.mackup
+ln -sf ~/.dotfiles/macos/mackup/ssh.cfg ~/.mackup/ssh.cfg
 mkdir -p ~/bin
 ln -sf ~/.dotfiles/bin/php-format ~/bin/php-format
 mkdir -p ~/.config/zed
