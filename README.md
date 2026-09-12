@@ -52,7 +52,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
 ## Quick Start
 
 ```bash
-git clone git@github.com:freekmurze/dotfiles.git ~/.dotfiles
+git clone git@github.com:ndeblauw/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 bin/install
 ```
@@ -253,7 +253,7 @@ config/claude/
 Install just the AI setup without the full dotfiles:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/freekmurze/dotfiles/main/bin/install-claude-code | bash
+curl -fsSL https://raw.githubusercontent.com/ndeblauw/dotfiles/main/bin/install-claude-code | bash
 ```
 
 That installs the Claude Code CLI, symlinks the config, and runs `bin/link-agent-skills` to share the harness-neutral skills with Codex.
@@ -288,9 +288,7 @@ All skills live in `config/claude/skills/` and are version-controlled. On a new 
 | `flare` | Triage errors and performance data on flareapp.io |
 | `mailcoach` | Email lists, subscribers, campaigns, automations |
 | `there-there` | Helpdesk tickets, contacts, channels |
-| `update-spatie-docs` | Re-import package docs to spatie.be after a docs PR merges |
 | `write-freek-dev-blogpost` | Draft a post in the freek.dev voice |
-| `typefully` | Draft and schedule social posts |
 | `code-snippet-images` | Render code screenshots for social media |
 
 **Tooling**
@@ -378,7 +376,7 @@ Codex reads `AGENTS.md` natively and Claude Code reads `CLAUDE.md`, so one file 
 bin/install-agent-skill-sync
 ```
 
-The script automatically links every directory with a top-level `SKILL.md`, except `ui` and `typefully`, which retain their Claude-specific integrations. Nested plugin skills remain scoped to their plugins and are not installed globally by this script. Sharing skill files does not install Claude plugins, MCP servers, or named subagents into Codex.
+The script automatically links every directory with a top-level `SKILL.md`, except `ui`, which retains its Claude-specific integration. Nested plugin skills remain scoped to their plugins and are not installed globally by this script. Sharing skill files does not install Claude plugins, MCP servers, or named subagents into Codex.
 
 The macOS installer enables a per-user LaunchAgent, `be.freek.agent-skill-sync`, so no command is needed when adding skills. It runs at login, watches the source directory, and checks every 60 seconds for changes inside existing folders. Removed or renamed skills have their old managed links cleaned up. `bin/install-claude-code` installs this job automatically on new machines.
 
@@ -483,6 +481,8 @@ The `bin/` directory contains helper scripts:
 
 ## Credits
 
-Created by [Freek Van der Herten](https://github.com/freekmurze). Used by many at [Spatie](https://spatie.be).
+Customized by [Nico Deblauwe](https://github.com/ndeblauw).
+
+Originally created by [Freek Van der Herten](https://github.com/freekmurze). Used by many at [Spatie](https://spatie.be).
 
 See `config/Brewfile` for complete package list.
