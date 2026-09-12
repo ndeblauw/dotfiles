@@ -441,6 +441,14 @@ Variables load when you enter the directory and unload when you leave.
 
 2. **Migrate history** (upgrading only): Run `migration/migrate-z-to-zoxide.sh` if you have `~/.z`
 
+### Manual Installs
+
+These can't be automated via Homebrew (licensing, account requirements, or no cask exists). Install them yourself:
+
+- **Adobe Creative Cloud** → [adobe.com/creativecloud](https://adobe.com/creativecloud). Download the CC installer and install **Photoshop** from within it. There is no Photoshop-only cask; the `adobe-creative-cloud` cask is excluded because Adobe's silent installer frequently fails under Homebrew.
+- **1Password / RoboForm app** → the GUI app is separate from the CLI. (If you use the CLI-only `roboform` cask you still need the desktop app for vault access.)
+- **iCloud, Apple apps** → install via the Mac App Store.
+
 ---
 
 ## Tool Comparisons
