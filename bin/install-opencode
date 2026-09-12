@@ -77,7 +77,7 @@ echo ""
 step "Next steps:"
 if [ ! -d "$DOTFILES_DIR/config/opencode" ]; then
     echo "  • Clone dotfiles for custom configuration:"
-    echo "    git clone https://github.com/freekmurze/dotfiles.git ~/.dotfiles"
+    echo "    git clone https://github.com/ndeblauw/dotfiles.git ~/.dotfiles"
     echo "    ~/.dotfiles/bin/install-opencode"
     echo ""
 fi
