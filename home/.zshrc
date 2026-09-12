@@ -124,7 +124,7 @@ export PATH="$HOME/.yarn/bin:$PATH"
 
 #export PATH=/Users/Shared/DBngin/postgresql/17.0/bin:$PATH
 
-export PATH=$HOME/bin:~/.config/phpmon/bin:$PATH
+export PATH=$HOME/bin:$PATH
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
