@@ -66,12 +66,6 @@ mkdir -p ~/.config/ghostty
 ln -sf ~/.dotfiles/config/ghostty/config ~/.config/ghostty/config
 success "Symlinks created"
 
-# NPM setup
-step "Configuring npm"
-mkdir -p ~/.npm-packages
-npm config set prefix ~/.npm-packages || warn "npm config failed"
-success "npm configured"
-
 # Homebrew
 step "Installing Homebrew"
 if ! command -v brew &>/dev/null; then
@@ -86,19 +80,26 @@ step "Installing packages from Brewfile"
 brew bundle --file=~/.dotfiles/config/Brewfile || warn "Some packages failed (likely already installed)"
 success "Brewfile processed"
 
-# fnm - Node.js version manager
-step "Setting up fnm"
-eval "$(fnm env --use-on-cd)" || warn "fnm activation failed"
-fnm install --lts || warn "fnm install failed"
-fnm use lts-latest || warn "fnm use failed"
-success "fnm configured"
+# NPM setup
+# Herd bundles Node/npm, so this runs after the Brewfile step installs the Herd cask.
+step "Configuring npm"
+mkdir -p ~/.npm-packages
+npm config set prefix ~/.npm-packages || warn "npm config failed"
+success "npm configured"
 
 # PHP extensions
+# Herd bundles PHP. xdebug ships precompiled with Herd (enable via Herd's php.ini).
+# Additional pecl extensions are compiled against a Homebrew base PHP and must be
+# activated in Herd's php.ini at ~/Library/Application Support/Herd/config/php/<version>/php.ini
 step "Installing PHP extensions"
-pecl install imagick 2>/dev/null || warn "imagick already installed or failed"
-pecl install memcached 2>/dev/null || warn "memcached already installed or failed"
-pecl install xdebug 2>/dev/null || warn "xdebug already installed or failed"
-pecl install redis 2>/dev/null || warn "redis already installed or failed"
+if command -v pecl &>/dev/null; then
+    pecl install imagick 2>/dev/null || warn "imagick already installed or failed"
+    pecl install memcached 2>/dev/null || warn "memcached already installed or failed"
+    pecl install redis 2>/dev/null || warn "redis already installed or failed"
+    warn "Activate compiled extensions in Herd's php.ini (Herd ships precompiled xdebug)"
+else
+    warn "pecl not found - skipping (Herd bundles its own PHP)"
+fi
 success "PHP extensions processed"
 
 # Global npm packages
@@ -114,13 +115,21 @@ composer global require laravel/pint || warn "pint already installed or failed"
 # composer global require laravel/envoy || warn "envoy already installed or failed"
 # TODO: re-evaluate phpunit-watcher - see issue
 # composer global require spatie/phpunit-watcher || warn "phpunit-watcher already installed or failed"
-composer global require laravel/valet || warn "valet already installed or failed"
-valet install || warn "valet already installed or failed"
 success "Composer packages processed"
 
 # MySQL
+# Herd Pro provides MySQL as a managed service (see `herd services:create mysql`).
+# Fall back to Homebrew MySQL only if Herd's service CLI is unavailable.
 step "Starting MySQL"
-brew services start mysql || warn "MySQL already running or failed"
+if command -v herd &>/dev/null; then
+    if herd services:list 2>/dev/null | grep -qi mysql; then
+        herd services:start mysql 2>/dev/null || warn "Herd MySQL already running or failed"
+    else
+        warn "No MySQL service in Herd yet - create one with: herd services:create mysql"
+    fi
+else
+    brew services start mysql || warn "MySQL already running or failed"
+fi
 success "MySQL processed"
 
 # Spotlight exclusions
