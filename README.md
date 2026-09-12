@@ -434,7 +434,7 @@ Variables load when you enter the directory and unload when you leave.
 
 ## Post-Installation
 
-1. **Restore settings** (optional): `mackup restore && mackup uninstall --force`. On macOS 14+ mackup's symlink (link) mode breaks app preferences, so restore, then remove the links immediately (see mackup issue #2035). The mackup folder lives in iCloud Drive at `~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/`. This restores `~/.ssh/config`, `authorized_keys`, and your SSH private keys (via the custom `macos/mackup/ssh.cfg` override).
+1. **Restore settings** (optional): `mackup restore && mackup uninstall --force`. On macOS 14+ mackup's symlink (link) mode breaks app preferences, so restore, then remove the links immediately (see mackup issue #2035). The mackup folder lives in Dropbox at `~/Dropbox/Mackup/`. This restores `~/.ssh/config`, `authorized_keys`, and your SSH private keys (via the custom `macos/mackup/ssh.cfg` override).
 
 2. **Migrate history** (upgrading only): Run `migration/migrate-z-to-zoxide.sh` if you have `~/.z`
 
