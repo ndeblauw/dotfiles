@@ -1,10 +1,11 @@
 # Dotfiles Brewfile
 # Install with: brew bundle --file=~/.dotfiles/Brewfile
 
+# Laravel Herd - manages PHP, Composer, Node/nvm, and services itself.
+# Install with: brew install --cask herd (or BeyondCode.Herd via winget on Windows)
+cask "herd"
+
 # Core tools
-brew "node"
-brew "php"
-brew "composer"
 brew "pkg-config"
 brew "wget"
 brew "httpie"
@@ -16,7 +17,6 @@ brew "doctl"
 cask "1password-cli"
 brew "git-secret"
 brew "imagemagick"
-brew "mysql"
 brew "yarn"
 brew "ghostscript"
 brew "mackup"
@@ -32,7 +32,6 @@ brew "eza"
 brew "ripgrep"
 brew "fd"
 brew "git-delta"
-brew "fnm"
 brew "fzf"
 brew "direnv"
 brew "jq"
