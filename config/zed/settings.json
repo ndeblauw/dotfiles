@@ -175,7 +175,7 @@
       "language_servers": ["intelephense", "!phpactor", "!phptools", "..."],
       "formatter": {
         "external": {
-          "command": "/Users/freek/bin/php-format",
+          "command": "/Users/ndeblauw/bin/php-format",
           "arguments": ["{buffer_path}"],
         },
       },

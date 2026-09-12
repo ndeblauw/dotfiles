@@ -137,7 +137,7 @@ if command -v zoxide &> /dev/null; then
 fi
 
 # bun completions
-[ -s "/Users/freek/.bun/_bun" ] && source "/Users/freek/.bun/_bun"
+[ -s "/Users/ndeblauw/.bun/_bun" ] && source "/Users/ndeblauw/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
