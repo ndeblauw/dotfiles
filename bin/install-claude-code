@@ -55,7 +55,7 @@ if [ -d "$DOTFILES_DIR/config/claude" ]; then
 
     # Symlink configuration files
     # Claude Code reads CLAUDE.md, not AGENTS.md, so it gets a symlink under the
-    # name it expects. Codex reads AGENTS.md directly. One file, both harnesses.
+    # name it expects. Codex and OpenCode read AGENTS.md directly. One file, three harnesses.
     ln -sf "$DOTFILES_DIR/config/claude/AGENTS.md" ~/.claude/CLAUDE.md
     ln -sf "$DOTFILES_DIR/config/claude/settings.json" ~/.claude/settings.json
     ln -sf "$DOTFILES_DIR/config/claude/statusline.sh" ~/.claude/statusline.sh
