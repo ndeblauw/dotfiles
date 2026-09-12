@@ -36,6 +36,8 @@ brew "direnv"
 brew "jq"
 brew "yq"
 brew "bottom"
+brew "tmux"
+brew "bun"
 
 # Development tools
 cask "claude-code"
@@ -46,6 +48,8 @@ cask "zed"
 cask "tinkerwell"
 cask "beekeeper-studio"
 cask "phpstorm"
+cask "ghostty"
+cask "raycast"
 
 # Productivity
 cask "notion"
@@ -57,6 +61,8 @@ cask "ray"
 cask "yaak"
 cask "imageoptim"
 cask "telegram"
+cask "deezer"
+cask "iina"
 
 # Browsers
 cask "firefox"
