@@ -118,9 +118,8 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/.yarn/bin:$PATH"
 
-# Use the Homebrew-path valet so `valet trust` (which whitelists /opt/homebrew/bin/valet)
-# lets secure/link/open etc. run without a sudo password prompt.
-alias valet="/opt/homebrew/bin/valet"
+# Local dev is managed by Laravel Herd (nginx/dnsmasq). Valet removed to avoid
+# port/service conflicts with Herd.
 
 
 #export PATH=/Users/Shared/DBngin/postgresql/17.0/bin:$PATH
@@ -135,11 +134,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # zoxide - smarter cd
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
-fi
-
-# fnm - Node.js version manager
-if command -v fnm &> /dev/null; then
-    eval "$(fnm env --use-on-cd)"
 fi
 
 # bun completions
