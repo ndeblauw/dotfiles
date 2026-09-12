@@ -438,11 +438,24 @@ Variables load when you enter the directory and unload when you leave.
 
 2. **Migrate history** (upgrading only): Run `migration/migrate-z-to-zoxide.sh` if you have `~/.z`
 
-3. **Verify SSH signing**: Your `home/.gitconfig` enables commit signing (`gpgsign = true`) with your Ed25519 key. After mackup restores your keys, load the key into the agent and verify:
+3. **Verify SSH signing**: `home/.gitconfig` has commit signing configured but **disabled** (`gpgsign = false`) until the key is ready. After mackup restores your keys, load the key, verify, then re-enable signing:
    - `chmod 600 ~/.ssh/id_ed25519`
    - `ssh-add ~/.ssh/id_ed25519`
    - If no key exists (fresh keypair), generate one: `ssh-keygen -t ed25519 -C "nico@bluepundit.eu"` and register the `.pub` on GitHub → Settings → SSH and GPG keys → **Signing key**
    - Verify: `git commit --allow-empty -m "test"` then `git log --show-signature -1` (should show `Good "git" signature`)
+   - Re-enable: `git config --global commit.gpgsign true`
+
+4. **Apply macOS system defaults**: Run `~/.dotfiles/macos/set-defaults.sh` to configure system settings for development:
+   - `sudo nvram SystemAudioVolume=" "` disables the boot sound
+   - Finder: show all extensions, show `~/Library`, list view default, disable `.DS_Store` on network volumes, disable warnings
+   - Dock: 72px icons, no bounce, no auto-rearrange of Spaces, wipes default app icons
+   - Keyboard: full keyboard access, disable auto-correct/smart quotes/smart dashes, `en_GB` locale with EUR currency, `Europe/Brussels` timezone
+   - Screenshots: no date in filename, custom `screenshot` prefix
+   - Safari: enables Develop menu + Web Inspector
+   - Misc: password required immediately after sleep, SSD optimizations (disable hibernation/sudden motion sensor), Activity Monitor shows all processes sorted by CPU, TextEdit plain-text/UTF-8
+   - Closes with `killall` for Finder/Dock/Safari/Mail/etc.; some changes need a logout/restart.
+   - It prompts before applying anything and asks for sudo upfront.
+   - Run it: `bash ~/.dotfiles/macos/set-defaults.sh`
 
 ### Manual Installs
 
@@ -480,7 +493,6 @@ The `bin/` directory contains helper scripts:
 - **install-agent-skill-sync** - Install the macOS background job that keeps shared skill links current automatically
 - **exclude-from-spotlight** - Drop a `.metadata_never_index` marker into data heavy directories so Spotlight skips them. Local database directories (DBngin and friends) hold hundreds of thousands of constantly rewritten files, which keeps `mds_stores` busy indefinitely.
 - **update** - Update dotfiles, Homebrew, npm, and Composer packages
-- **doctor** - Health check and diagnostic tool
 - **conductor-merge** - Fast-forward the current Conductor workspace branch into `main` (which lives in another git worktree). Use `--push` to also push `main` to `origin`, which clears Conductor's "Changes" view (it diffs against `origin/main`).
 
 ---
