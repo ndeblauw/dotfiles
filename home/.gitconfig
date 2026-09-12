@@ -27,7 +27,9 @@
 	format = ssh
 
 [commit]
-	gpgsign = true
+	# Signing disabled until the SSH key is restored via mackup and verified.
+	# Re-enable with: git config --global commit.gpgsign true
+	gpgsign = false
 
 [push]
 	autoSetupRemote = true
