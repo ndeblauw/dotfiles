@@ -438,6 +438,13 @@ Variables load when you enter the directory and unload when you leave.
 
 2. **Migrate history** (upgrading only): Run `migration/migrate-z-to-zoxide.sh` if you have `~/.z`
 
+3. **Copy the SSH signing key**: Your `home/.gitconfig` enables commit signing (`gpgsign = true`) with your Ed25519 key. Copy the private key onto this machine so commits can sign:
+   - Copy `id_ed25519` (private) and `id_ed25519.pub` (public) into `~/.ssh/` (default: `~/.ssh/id_ed25519`)
+   - `chmod 600 ~/.ssh/id_ed25519`
+   - `ssh-add ~/.ssh/id_ed25519`
+   - If you don't have the keypair, generate one: `ssh-keygen -t ed25519 -C "nico@bluepundit.eu"` and register the `.pub` on GitHub → Settings → SSH and GPG keys → **Signing key**
+   - Verify: `git commit --allow-empty -m "test"` then `git log --show-signature -1` (should show `Good "git" signature`)
+
 ### Manual Installs
 
 These can't be automated via Homebrew (licensing, account requirements, or no cask exists). Install them yourself:
