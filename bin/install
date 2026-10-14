@@ -78,6 +78,9 @@ fi
 success "Homebrew installed"
 
 # Install all packages from Brewfile
+
+# Trust third-party taps required by some casks (e.g. spatie/bloom)
+brew trust spatie/bloom 2>/dev/null || true
 step "Installing packages from Brewfile"
 brew bundle --file=~/.dotfiles/config/Brewfile || warn "Some packages failed (likely already installed)"
 success "Brewfile processed"

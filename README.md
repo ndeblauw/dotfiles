@@ -229,7 +229,7 @@ brew bundle --file=~/.dotfiles/config/Brewfile
 - **Core**: pkg-config, wget, httpie, ncdu, hub, ack, doctl, 1password-cli, git-secret, imagemagick, yarn, ghostscript, mackup
 - **Laravel Herd**: herd (bundles PHP, Composer, Node/nvm, MySQL services)
 - **Modern CLI**: zoxide, bat, eza, ripgrep, fd, git-delta, fzf, direnv, jq, yq, bottom, zsh-autosuggestions
-- **QuickLook**: qlcolorcode, qlstephen, qlmarkdown, quicklook-json, qlprettypatch, quicklook-csv, betterzip, suspicious-package
+- **QuickLook**: qlcolorcode, qlstephen, qlmarkdown, quickjson, qlprettypatch, quicklook-csv, betterzip, suspicious-package
 - **PHP Extensions**: imagick, memcached, redis (via pecl, activated in Herd's php.ini); xdebug ships with Herd
 - **Global npm**: agent-browser
 - **Global Composer**: laravel/pint
