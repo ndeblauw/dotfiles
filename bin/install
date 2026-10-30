@@ -54,6 +54,7 @@ success "Git configured"
 step "Creating symlinks"
 rm -f ~/.zshrc ~/.vimrc ~/.vim ~/.mackup.cfg
 ln -sf ~/.dotfiles/home/.zshrc ~/.zshrc
+ln -sf ~/.dotfiles/home/.zprofile ~/.zprofile
 ln -sf ~/.dotfiles/home/.vimrc ~/.vimrc
 ln -sf ~/.dotfiles/home/.vim ~/.vim
 ln -sf ~/.dotfiles/macos/.mackup.cfg ~/.mackup.cfg
@@ -74,7 +75,6 @@ success "Symlinks created"
 step "Installing Homebrew"
 if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 success "Homebrew installed"
