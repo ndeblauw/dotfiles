@@ -138,6 +138,11 @@ if command -v direnv &> /dev/null; then
     eval "$(direnv hook zsh)"
 fi
 
+# Ctrl-R history, Ctrl-T file and Alt-C directory search (installed via brew)
+if command -v fzf &> /dev/null; then
+    eval "$(fzf --zsh)"
+fi
+
 # bun completions
 [ -s "/Users/ndeblauw/.bun/_bun" ] && source "/Users/ndeblauw/.bun/_bun"
 
