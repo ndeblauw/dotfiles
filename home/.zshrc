@@ -168,3 +168,9 @@ export NVM_DIR="/Users/ndeblauw/Library/Application Support/Herd/config/nvm"
 
 # Herd injected PHP binary.
 export PATH="/Users/ndeblauw/Library/Application Support/Herd/bin":$PATH
+
+# Must stay last: syntax highlighting wraps the existing widgets, and loading it
+# before autosuggestions or the prompt setup breaks both.
+if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
