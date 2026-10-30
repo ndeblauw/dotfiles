@@ -1,5 +1,5 @@
 # Dotfiles Brewfile
-# Install with: brew bundle --file=~/.dotfiles/Brewfile
+# Install with: brew bundle --file=~/.dotfiles/config/Brewfile
 
 # Laravel Herd - manages PHP, Composer, Node/nvm, and services itself.
 # Install with: brew install --cask herd (or BeyondCode.Herd via winget on Windows)
