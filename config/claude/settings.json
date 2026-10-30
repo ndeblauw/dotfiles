@@ -7,7 +7,6 @@
     "allow": [
       "Bash(gh:*)",
       "Bash(flare:*)",
-      "Bash(there-there:*)",
       "Bash(mailcoach:*)",
       "Bash(curl:*)",
       "Bash(composer:*)",
