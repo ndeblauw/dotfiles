@@ -95,13 +95,6 @@ else
     warn "git-lfs not installed, skipping filter setup"
 fi
 
-# NPM setup
-# Herd bundles Node/npm, so this runs after the Brewfile step installs the Herd cask.
-step "Configuring npm"
-mkdir -p ~/.npm-packages
-npm config set prefix ~/.npm-packages || warn "npm config failed"
-success "npm configured"
-
 # PHP extensions
 # Herd bundles PHP. xdebug ships precompiled with Herd (enable via Herd's php.ini).
 # Additional pecl extensions are compiled against a Homebrew base PHP and must be
