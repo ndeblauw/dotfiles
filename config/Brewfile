@@ -65,6 +65,7 @@ cask "imageoptim"
 cask "telegram"
 cask "deezer"
 cask "iina"
+cask "obs"
 cask "cyberduck"
 cask "roboform"
 # Ships a QuickLook generator alongside the archive app itself.
