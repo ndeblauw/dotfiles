@@ -104,7 +104,7 @@ The installation creates symlinks from your home directory to the dotfiles repos
 | `~/.mackup.cfg` | `~/.dotfiles/macos/.mackup.cfg` | Mackup backup configuration |
 | `~/.claude/skills` | `~/.dotfiles/config/claude/skills/` | All Claude Code skills (version-controlled) |
 | `~/.claude/agents` | `~/.dotfiles/config/claude/agents/` | All Claude Code agents (version-controlled) |
-| `~/.claude/CLAUDE.md` | `~/.dotfiles/config/claude/AGENTS.md` | Agent instructions (Claude reads `CLAUDE.md`, not `AGENTS.md`) |
+| `~/.claude/CLAUDE.md` | `~/.dotfiles/config/claude/AGENTS.md` | Agent instructions (user-level instructions must be named `CLAUDE.md`) |
 | `~/.claude/settings.json` | `~/.dotfiles/config/claude/settings.json` | Claude Code settings |
 | `~/.codex/AGENTS.md` | `~/.dotfiles/config/claude/AGENTS.md` | The same instructions, read natively by Codex |
 | `~/.config/opencode/AGENTS.md` | `~/.dotfiles/config/claude/AGENTS.md` | The same instructions, read natively by OpenCode |
@@ -369,7 +369,7 @@ The lanes file has a per-harness table, so the same review runs under Codex with
 
 ### Sharing With Codex and OpenCode
 
-Codex and OpenCode read `AGENTS.md` natively and Claude Code reads `CLAUDE.md`, so one file is symlinked under all three names. Skills also have one source: `config/claude/skills/`. Claude reads it through `~/.claude/skills`; Codex and OpenCode both read individual symlinks in `~/.agents/skills`, their [documented user skill directory](https://learn.chatgpt.com/docs/build-skills). Codex's built-in `~/.codex/skills/.system` stays separate. OpenCode discovers subagents from `~/.config/opencode/agents`, symlinked to the shared `config/claude/agents` directory.
+Codex and OpenCode read `AGENTS.md` natively. Claude Code reads a project's `AGENTS.md` natively too since v2.1.277, but user-level instructions still have to be named `~/.claude/CLAUDE.md`, so one file is symlinked under both names. Skills also have one source: `config/claude/skills/`. Claude reads it through `~/.claude/skills`; Codex and OpenCode both read individual symlinks in `~/.agents/skills`, their [documented user skill directory](https://learn.chatgpt.com/docs/build-skills). Codex's built-in `~/.codex/skills/.system` stays separate. OpenCode discovers subagents from `~/.config/opencode/agents`, symlinked to the shared `config/claude/agents` directory.
 
 ```bash
 bin/install-agent-skill-sync
