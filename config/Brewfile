@@ -66,6 +66,12 @@ cask "telegram"
 cask "deezer"
 cask "iina"
 
+# Microsoft Office
+cask "onedrive"
+cask "microsoft-word"
+cask "microsoft-excel"
+cask "microsoft-powerpoint"
+
 # Browsers
 cask "firefox"
 cask "google-chrome"
