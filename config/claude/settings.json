@@ -99,5 +99,6 @@
   "theme": "light",
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": false,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "model": "sonnet"
 }
