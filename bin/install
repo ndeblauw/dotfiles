@@ -85,6 +85,14 @@ step "Installing packages from Brewfile"
 brew bundle --file=~/.dotfiles/config/Brewfile || warn "Some packages failed (likely already installed)"
 success "Brewfile processed"
 
+# Wire the global lfs filters declared in .gitconfig. Idempotent.
+step "Configuring git-lfs"
+if command -v git-lfs &>/dev/null; then
+    git lfs install --skip-repo >/dev/null 2>&1 && success "git-lfs configured"
+else
+    warn "git-lfs not installed, skipping filter setup"
+fi
+
 # NPM setup
 # Herd bundles Node/npm, so this runs after the Brewfile step installs the Herd cask.
 step "Configuring npm"
