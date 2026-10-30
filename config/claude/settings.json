@@ -101,10 +101,8 @@
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
   "fastMode": true,
-  "skipDangerousModePermissionPrompt": true,
   "theme": "light",
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": false,
-  "skipAutoPermissionPrompt": true,
   "model": "sonnet"
 }
