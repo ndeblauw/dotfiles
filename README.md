@@ -224,15 +224,18 @@ echo 'brew "neovim"' >> ~/.dotfiles/config/Brewfile
 brew bundle --file=~/.dotfiles/config/Brewfile
 ```
 
-**Complete package list:**
+The Brewfile is the single source of truth for packages, grouped by purpose
+(core tools, modern CLI, development, productivity, Microsoft Office, browsers,
+QuickLook, and so on). Read it directly instead of trusting a copy here:
 
-- **Core**: pkg-config, wget, httpie, ncdu, hub, ack, doctl, 1password-cli, git-secret, imagemagick, yarn, ghostscript, mackup
-- **Laravel Herd**: herd (bundles PHP, Composer, Node/nvm, MySQL services)
-- **Modern CLI**: zoxide, bat, eza, ripgrep, fd, git-delta, fzf, direnv, jq, yq, bottom, zsh-autosuggestions
-- **QuickLook**: qlcolorcode, qlstephen, qlmarkdown, quickjson, qlprettypatch, quicklook-csv, betterzip, suspicious-package
-- **PHP Extensions**: imagick, memcached, redis (via pecl, activated in Herd's php.ini); xdebug ships with Herd
-- **Global npm**: agent-browser
-- **Global Composer**: laravel/pint
+```bash
+cat ~/.dotfiles/config/Brewfile
+```
+
+Bundled by other tools rather than by the Brewfile: PHP extensions imagick,
+memcached and redis (via pecl, activated in Herd's php.ini; xdebug ships with
+Herd), the global npm package agent-browser, and the global Composer package
+laravel/pint.
 
 ---
 
@@ -245,7 +248,7 @@ config/claude/
 ├── AGENTS.md          the instructions, read by all three harnesses
 ├── settings.json      Claude Code settings, permissions, hooks
 ├── agents/            custom subagents
-└── skills/            19 skills, plus 3 scoped plugins
+└── skills/            21 skills, plus 3 scoped plugins
 ```
 
 ### Quick Install (Standalone)
