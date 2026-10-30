@@ -81,11 +81,15 @@ success "Homebrew installed"
 
 # Install all packages from Brewfile
 
-# Trust third-party taps required by some casks (e.g. spatie/bloom)
-brew trust spatie/bloom 2>/dev/null || true
 step "Installing packages from Brewfile"
 brew bundle --file=~/.dotfiles/config/Brewfile || warn "Some packages failed (likely already installed)"
 success "Brewfile processed"
+
+# Homebrew refuses to load untrusted third-party taps, which breaks later
+# upgrades and cleanup. The bundle step above clones the taps, so trust after it.
+step "Trusting third-party taps"
+brew trust spatie/bloom anomalyco/tap || warn "Could not trust third-party taps"
+success "Taps trusted"
 
 # Wire the global lfs filters declared in .gitconfig. Idempotent.
 step "Configuring git-lfs"

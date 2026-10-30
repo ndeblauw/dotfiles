@@ -24,6 +24,10 @@ git -C ~/.dotfiles pull origin main
 success "Dotfiles updated"
 
 # Update Homebrew and packages
+# Third-party taps must be trusted, or upgrade and cleanup refuse to load them.
+step "Trusting third-party taps"
+brew trust spatie/bloom anomalyco/tap || warn "Could not trust third-party taps"
+
 step "Updating Homebrew packages"
 brew update
 brew upgrade
