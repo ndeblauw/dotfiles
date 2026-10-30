@@ -16,6 +16,7 @@ brew "git-lfs"
 brew "imagemagick"
 brew "yarn"
 brew "ghostscript"
+brew "python@3.15"
 brew "mackup"
 
 # Zsh
