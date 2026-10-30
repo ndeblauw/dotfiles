@@ -21,6 +21,7 @@ brew "mackup"
 
 # Zsh
 brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
 # Modern CLI tools
 brew "zoxide"
