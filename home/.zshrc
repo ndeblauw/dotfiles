@@ -133,6 +133,11 @@ if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
+# Load per-directory environments from .envrc (installed via brew)
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
 # bun completions
 [ -s "/Users/ndeblauw/.bun/_bun" ] && source "/Users/ndeblauw/.bun/_bun"
 
