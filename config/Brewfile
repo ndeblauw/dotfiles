@@ -3,6 +3,10 @@
 
 # Laravel Herd - manages PHP, Composer, Node/nvm, and services itself.
 # Install with: brew install --cask herd (or BeyondCode.Herd via winget on Windows)
+# The cask is stuck on 1.30.2 because its livecheck gets the 1.x update feed,
+# while the app self-updates to 2.x. Don't run `brew upgrade --cask herd` or
+# `brew bundle --force`, as both reinstall 1.30.2 over 2.x until the cask
+# catches up. See https://github.com/Homebrew/homebrew-cask/issues/295483.
 cask "herd"
 
 # Core tools
@@ -40,6 +44,7 @@ brew "bun"
 
 # Development tools
 cask "claude-code"
+cask "claude"
 tap "spatie/bloom"
 cask "spatie-bloom"
 tap "anomalyco/tap"
