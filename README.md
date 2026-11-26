@@ -208,7 +208,7 @@ herd isolate-node 20         # Pin a Node version per project
 ### PHP & Composer (via Laravel Herd)
 
 ```bash
-herd use 8.4       # Switch global PHP version
+herd use 8.5       # Switch global PHP version
 herd php:update    # Update PHP
 herd composer      # Run composer with the site's PHP
 ```

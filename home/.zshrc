@@ -149,8 +149,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 ulimit -n 65536
 
 
-# Herd injected PHP 8.4 configuration.
-export HERD_PHP_84_INI_SCAN_DIR="/Users/ndeblauw/Library/Application Support/Herd/config/php/84"
+# Herd injected PHP 8.5 configuration.
+export HERD_PHP_85_INI_SCAN_DIR="/Users/ndeblauw/Library/Application Support/Herd/config/php/85"
 
 
 # Herd injected NVM configuration
