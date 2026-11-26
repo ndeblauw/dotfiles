@@ -21,7 +21,7 @@ Personal dotfiles with modern shell tooling, optimized for Laravel/PHP developme
 
 - [AI Development Setup](#ai-development-setup) - one config for Claude Code, Codex, and OpenCode
   - [Quick Install (Standalone)](#quick-install-standalone) - the AI setup without the rest of the dotfiles
-  - [Skills](#skills) - all 19, grouped by purpose
+  - [Skills](#skills) - grouped by purpose
   - [Scoped Plugins](#scoped-plugins) - skills that load only in the repos that need them
   - [Code Intelligence](#code-intelligence) - Laravel LSP, Intelephense, TypeScript
   - [Agents](#agents) - custom subagents
@@ -97,6 +97,7 @@ The installation creates symlinks from your home directory to the dotfiles repos
 | Symlink Location | Points To | Purpose |
 |-----------------|-----------|---------|
 | `~/.zshrc` | `~/.dotfiles/home/.zshrc` | Main Zsh configuration (Oh My Zsh with custom agnoster theme) |
+| `~/.zprofile` | `~/.dotfiles/home/.zprofile` | Login shell PATH for Homebrew on Apple Silicon |
 | `~/.gitconfig` | `~/.dotfiles/home/.gitconfig` | Git configuration with delta diff viewer |
 | `~/.global-gitignore` | `~/.dotfiles/home/.global-gitignore` | Global Git ignore patterns |
 | `~/.vimrc` | `~/.dotfiles/home/.vimrc` | Vim configuration |
@@ -109,10 +110,12 @@ The installation creates symlinks from your home directory to the dotfiles repos
 | `~/.codex/AGENTS.md` | `~/.dotfiles/config/claude/AGENTS.md` | The same instructions, read natively by Codex |
 | `~/.config/opencode/AGENTS.md` | `~/.dotfiles/config/claude/AGENTS.md` | The same instructions, read natively by OpenCode |
 | `~/.config/opencode/agents` | `~/.dotfiles/config/claude/agents` | Shared subagents, discovered by OpenCode (filename = agent name) |
+| `~/.config/opencode/opencode.jsonc` | `~/.dotfiles/config/opencode/opencode.jsonc` | OpenCode instructions file |
 | `~/.agents/skills/*` | `~/.dotfiles/config/claude/skills/*` | One symlink per shared skill, discovered by Codex and OpenCode. See `bin/link-agent-skills` |
 | `~/.config/zed/settings.json` | `~/.dotfiles/config/zed/settings.json` | Zed editor settings |
 | `~/.config/zed/keymap.json` | `~/.dotfiles/config/zed/keymap.json` | Zed custom keybindings |
 | `~/.config/ghostty/config` | `~/.dotfiles/config/ghostty/config` | Ghostty terminal settings |
+| `~/.config/tmux/tmux.conf` | `~/.dotfiles/config/tmux/tmux.conf` | tmux settings |
 
 To manually symlink the Zed configuration (if not using `bin/install`):
 
@@ -248,7 +251,7 @@ config/claude/
 ├── AGENTS.md          the instructions, read by all three harnesses
 ├── settings.json      Claude Code settings, permissions, hooks
 ├── agents/            custom subagents
-└── skills/            21 skills, plus 3 scoped plugins
+└── skills/            17 skills, plus 3 scoped plugins
 ```
 
 ### Quick Install (Standalone)
@@ -283,6 +286,7 @@ All skills live in `config/claude/skills/` and are version-controlled. On a new 
 | `review-code` | Runs 6 review lanes in parallel over the working tree, then applies the fixes |
 | `review-pr` | Reviews a GitHub PR, gates on CI, merges, thanks the author. Releases only when asked |
 | `audit-architecture` | Whole-codebase audit of how state and data are modelled. Read-only, ranked P0 to P3 |
+| `explain-changes` | Explains a branch as an HTML page, written for someone reviewing the change |
 
 **Products and publishing** (CLI wrappers for things Spatie runs)
 
@@ -494,6 +498,7 @@ The `bin/` directory contains helper scripts:
 - **install-opencode** - Standalone installer for the OpenCode CLI, config, rules, skills, and shared agents
 - **link-agent-skills** - Symlink the harness-neutral skills and `AGENTS.md` into Codex and OpenCode, leaving each harness's own built-in skills alone
 - **install-agent-skill-sync** - Install the macOS background job that keeps shared skill links current automatically
+- **php-format** - Run Pint over changed PHP files
 - **exclude-from-spotlight** - Drop a `.metadata_never_index` marker into data heavy directories so Spotlight skips them. Local database directories (DBngin and friends) hold hundreds of thousands of constantly rewritten files, which keeps `mds_stores` busy indefinitely.
 - **update** - Update dotfiles, Homebrew, npm, and Composer packages
 - **conductor-merge** - Fast-forward the current Conductor workspace branch into `main` (which lives in another git worktree). Use `--push` to also push `main` to `origin`, which clears Conductor's "Changes" view (it diffs against `origin/main`).
