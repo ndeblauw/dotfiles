@@ -97,7 +97,7 @@ function db() {
 # Read a single value from the project's .env without sourcing it.
 function _db_import_env() {
     local key="$1" line value
-    line=$(grep -E "^[[:space:]]*(export[[:space:]]+)?${key}=" .env | tail -n 1) || return 0
+    line=$(command grep -E "^[[:space:]]*(export[[:space:]]+)?${key}=" .env | tail -n 1) || return 0
     value=${line#*=}
     value=${value%$'\r'}
     value="${value#"${value%%[![:space:]]*}"}"
