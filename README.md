@@ -170,6 +170,7 @@ a                   # php artisan
 p                   # Run Pest/PHPUnit tests
 c                   # composer
 mfs                 # php artisan migrate:fresh --seed
+dbimport            # Import a dump from ~/Sql dumps into the .env database
 nah                 # git reset --hard; git clean -df
 ```
 
